@@ -1,0 +1,15 @@
+{
+  "API_keys": {
+    "weather_key": "a26faac876fc6e4e0c7e6e881c769d82",
+    "news_key": "9fa4574823754bc88f27354f1a088369"
+  },
+  "News_API": {
+    "country": "gb",
+    "search_term": ""
+  },
+  "Weather_API": {
+    "country": "gb",
+    "city_name": "Exeter",
+    "units": "metric"
+  }
+}
