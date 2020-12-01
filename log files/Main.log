@@ -1,0 +1,8 @@
+log: Alarm set: {'alarm time': '2020-12-01T13:15', 'title': 'test', 'content': Markup('Date set for 2020-12-01<br>Time set for 13:15<br>Weather briefing included<br>News briefing included'), 'weather': True, 'news': True}
+log: Delay for alarm: 60 seconds
+log: test alarm has been removed
+log: Covid update notification has been added
+log: News Briefing notification has been added
+log: Weather Briefing notification has been added
+log: notifications are being announced
+log: notifications are no longer being announced

@@ -71,9 +71,9 @@ def get_covid_info_formatted_for_notification():
     local_date, uk_date, total_new_cases, total_uk_cases, local_new_cases, total_local_cases = filter_data()
 
     content = Markup(f"Total cases in the UK as of {uk_date}: {total_uk_cases}<br>"
-                     f"Total cases in (location) as of {local_date}: {total_local_cases}<br>"
+                     f"Total cases in {area_name} as of {local_date}: {total_local_cases}<br>"
                      f"{total_new_cases} new cases today in the UK<br>"
-                     f"{local_new_cases} new cases today in (location)")
+                     f"{local_new_cases} new cases today in {area_name}")
     return content
 
 
@@ -86,8 +86,8 @@ def get_covid_info_formatted_for_announcement():
     local_date, uk_date, total_new_cases, total_uk_cases, local_new_cases, total_local_cases = filter_data()
 
     content = f"Total cases in the UK as of {uk_date}: {total_uk_cases}\n" \
-              f"Total cases in (location) as of {local_date}: {total_local_cases}\n" \
+              f"Total cases in {area_name} as of {local_date}: {total_local_cases}\n" \
               f"{total_new_cases} new cases today in the UK\n" \
-              f"{local_new_cases} new cases today in (location)"
+              f"{local_new_cases} new cases today in {area_name}"
 
     return content
