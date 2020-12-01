@@ -1,7 +1,7 @@
 from api_handling.get_news_info import get_article_info
 
 
-def test_1():
+def test_expected_response():
     test_response = {
         "status": "ok",
         "totalResults": 1,
@@ -28,7 +28,7 @@ def test_1():
     assert get_article_info(test_response) == expected
 
 
-def test_2():
+def test_none_response():
     test_response = None
 
     assert get_article_info(test_response) is None
