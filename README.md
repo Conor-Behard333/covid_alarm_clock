@@ -56,6 +56,9 @@ python -m pytest
 #### API keys
 In the config file under "API_Keys" set "weather_key" and "news_key" to the appropriate API key. 
 
+#### Covid API
+In the config file you can set the area name so the API returns the cases for that area.
+
 #### News API
 In the config file you can set which country to search the news by setting the "country" key. You can also pre-define the 
 search term for the type of news articles you search for by setting the "search_term" key. 

@@ -1,15 +1,16 @@
 """Handles retrieving and formatting the weather data from the weather api"""
 import json
 import requests
-from api_handling.get_config_info import get_api_key, get_weather_request_parameters
+from api_handling.get_config_info import get_request_parameter
 from logger_setup import setup_logger
 from flask import Markup
 
 log = setup_logger("Weather API.log", "log (weather API)")
 
-api_key = get_api_key("weather_key")
-country_code = get_weather_request_parameters("country")
-city_name = get_weather_request_parameters("city_name")
+api_key = get_request_parameter("API_keys", "weather_key")
+country_code = get_request_parameter("Weather_API", "country")
+city_name = get_request_parameter("Weather_API", "city_name")
+units = get_request_parameter("Weather_API", "units")
 
 
 def get_weather() -> dict:
@@ -21,7 +22,6 @@ def get_weather() -> dict:
     :return: the response from the api
     """
     query = f"{city_name},{country_code}"
-    units = get_weather_request_parameters("units")
     url_current_weather = f"https://api.openweathermap.org/data/2.5/weather?q={query}" \
                           f"&appid={api_key}&units={units}"
     response = requests.get(url_current_weather).json()
@@ -43,7 +43,7 @@ def get_weather_info() -> tuple:
         weather_description = response["weather"][0]["description"]
         temperature = str(response["main"]["temp"]) + u"\N{DEGREE SIGN}"
         feels_like = str(response["main"]["feels_like"]) + u"\N{DEGREE SIGN}"
-        if get_weather_request_parameters("units") == "metric":
+        if units == "metric":
             temperature += "C"
             feels_like += "C"
         else:
@@ -66,4 +66,3 @@ def get_weather_formatted_for_notification() -> str:
                          f"Feels like: {feels_like}")
         return content
     return ""
-

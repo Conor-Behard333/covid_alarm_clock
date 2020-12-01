@@ -1,16 +1,16 @@
 """Handles retrieving and formatting the news data from the news api"""
 import json
 import requests
-from api_handling.get_config_info import get_api_key, get_news_request_parameters
+from api_handling.get_config_info import get_request_parameter
 from flask import Markup
 from random import choice
 from logger_setup import setup_logger
 
 log = setup_logger("News API.log", "log (news API)")
 
-api_key = get_api_key("news_key")
-country = get_news_request_parameters("country")
-search_term = get_news_request_parameters("search_term")
+api_key = get_request_parameter("API_keys", "news_key")
+country = get_request_parameter("News_API", "country")
+search_term = get_request_parameter("News_API", "search_term")
 
 
 def get_news() -> list:
@@ -75,4 +75,3 @@ def get_news_formatted_for_notification() -> str:
                          f"Source: {source}")
         return content
     return ""
-
