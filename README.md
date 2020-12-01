@@ -68,6 +68,6 @@ the api to return by setting the "units" key to either metric (Centigrade) or im
 ## Details
 Author: Conor Behard Roberts
 
-Github Repo: [here](https://github.com/Conor-Behard333/covid_alarm_clock.git)
+Github Repo: [Here](https://github.com/Conor-Behard333/covid_alarm_clock.git)
 
 Licence: [MIT](https://choosealicense.com/licenses/mit/)

@@ -49,7 +49,7 @@ def get_covid_info_formatted_for_notification():
     """
     date, total_new_cases, total_uk_cases = filter_data()
     content = Markup(f"Total cases in the UK as of {date}: {total_uk_cases} <br>"
-                     f"Total new cases for {date} in the UK: {total_new_cases}")
+                     f"{total_new_cases} new cases today in the UK")
     return content
 
 
@@ -61,6 +61,6 @@ def get_covid_info_formatted_for_announcement():
     """
     date, total_new_cases, total_uk_cases = filter_data()
     content = f"Total cases in the UK as of {date}: {total_uk_cases}\n" \
-              f"Total new cases for {date} in the UK: {total_new_cases}"
+              f"{total_new_cases} new cases today in the UK"
 
     return content

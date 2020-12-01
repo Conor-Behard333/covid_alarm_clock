@@ -42,7 +42,7 @@ def announce():
 
             log.info("notifications are being announced")
             tts.runAndWait()
-            tts.stop()
+            del tts
             log.info("notifications are no longer being announced")
             announcements.clear()
         except RuntimeError as error:
@@ -122,14 +122,15 @@ def delete_notification(notification_title: str):
             log.info("%s notification has been removed", notification_title)
 
 
-def check_scheduled_alarms(alarm: dict):
-    """Checks all of the current alarms to see if they should be set off
-    if the current time is the same as the time set for the alarm then add a covid notification
-    if the user selected a news briefing then also add a news notification
-    if the user selected a weather briefing then also add a weather notification
+def set_off_alarms(alarm: dict):
+    """sets off the alarm passed into the function.
+    adds a covid notification and announcement
+    adds a weather/news notification if it has been selected
 
-    :return: None
+    :param alarm: the alarm that is being set off
+    :return:
     """
+    # only sets off alarm if it is in the alarm list
     if alarm in alarms:
         alarms.remove(alarm)  # delete alarm
         log.info("%s alarm has been removed", alarm["title"])
@@ -138,7 +139,8 @@ def check_scheduled_alarms(alarm: dict):
             add_news_notification()
         if alarm["weather"]:
             add_weather_notification()
-        announcement_scheduler.enter(1, len(notifications), announce)
+        announcement_scheduler.enterabs(0, 1, announce)
+        announcement_scheduler.run(blocking=False)
     else:
         log.info("No alarm was found")
 
@@ -203,8 +205,6 @@ def index():
     :return: The html template with alarms and notifications added
     """
     notification_scheduler.run(blocking=False)
-    if not announcement_scheduler.empty():
-        announcement_scheduler.run(blocking=False)
 
     # get the inputs from the users alarm submission
     alarm_time = request.args.get("alarm")
@@ -226,7 +226,7 @@ def index():
             alarm["content"] = format_alarm_content(alarm_date_time, alarm_news, alarm_weather)
 
             notification_scheduler.enter(notification_delay, len(notifications),
-                                         check_scheduled_alarms, (alarm,))
+                                         set_off_alarms, (alarm,))
 
             log.info("Alarm set: %s", alarm)
             log.info("Delay for alarm: %d seconds", notification_delay)
