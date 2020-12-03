@@ -1,9 +1,9 @@
 """Handles retrieving and formatting the news data from the news api"""
 import json
-import requests
-from api_handling.get_config_info import get_request_parameter
-from flask import Markup
 from random import choice
+import requests
+from flask import Markup
+from api_handling.get_config_info import get_request_parameter
 from logger_setup import setup_logger
 
 log = setup_logger("News API.log", "log (news API)")

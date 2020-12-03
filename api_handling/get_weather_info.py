@@ -1,9 +1,9 @@
 """Handles retrieving and formatting the weather data from the weather api"""
 import json
 import requests
+from flask import Markup
 from api_handling.get_config_info import get_request_parameter
 from logger_setup import setup_logger
-from flask import Markup
 
 log = setup_logger("Weather API.log", "log (weather API)")
 

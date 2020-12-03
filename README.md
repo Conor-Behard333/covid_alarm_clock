@@ -45,11 +45,22 @@ that will open the news article in another tab.
 In weather notifications the current temperature and what temperature it feels like is displayed.
 
 ## Testing
+###Unit testing
 ```bash
 pip install pytest 
 ```
 ```bash
 python -m pytest
+```
+###Test code formatting
+```bash
+pip intall pylint
+```
+```bash
+cd tests
+```
+```bash
+python linter.py
 ```
 ## Developer documentation
 ### Using the config file
@@ -57,7 +68,7 @@ python -m pytest
 In the config file under "API_Keys" set "weather_key" and "news_key" to the appropriate API key. 
 
 #### Covid API
-In the config file you can set the area name so the API returns the cases for that area.
+In the config file you can set the area name, so the API returns the cases for that area.
 
 #### News API
 In the config file you can set which country to search the news by setting the "country" key. You can also pre-define the 

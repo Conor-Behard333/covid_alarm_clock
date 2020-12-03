@@ -6,8 +6,8 @@ import sched
 import time
 import pyttsx3
 
-from logger_setup import setup_logger
 from flask import Flask, render_template, request, Markup
+from logger_setup import setup_logger
 from api_handling.get_weather_info import get_weather_formatted_for_notification
 from api_handling.get_news_info import get_news_formatted_for_notification
 from api_handling.get_covid_info import get_covid_info_formatted_for_notification, \
