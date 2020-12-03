@@ -2,8 +2,10 @@
 from uk_covid19 import Cov19API
 from flask import Markup
 from api_handling.get_config_info import get_request_parameter
+from logger_setup import setup_logger
 
 area_name = get_request_parameter("Covid_API", "areaName")
+log = setup_logger("Covid API.log", "log (Covid API)")
 
 
 def get_covid_info() -> tuple:
@@ -32,7 +34,11 @@ def get_covid_info() -> tuple:
 
     local_data = local_data.get_json()
     uk_data = uk_data.get_json()
-    return local_data, uk_data
+
+    if local_data["totalPages"] > 0:
+        return local_data, uk_data
+    log.error("%s did not return any results", area_name)
+    return None, uk_data
 
 
 def filter_data():
@@ -44,22 +50,23 @@ def filter_data():
     """
     local_data, uk_data = get_covid_info()
 
-    # get the date for the local data and uk data
-    local_date = local_data["lastUpdate"].split("T")[0]
+    # get the date, new and total cases in the UK
     uk_date = uk_data["lastUpdate"].split("T")[0]
-
-    # get the new and total cases in the local area
-    total_local_cases = local_data["data"][0]["totalCases"]
-    local_new_cases = local_data["data"][0]["newCases"]
-
-    # get the new and total cases in the UK
     total_uk_cases = 0
     total_new_cases = 0
     for area in uk_data["data"]:
         total_uk_cases += int(area["totalCases"])
         total_new_cases += int(area["newCases"])
 
-    return local_date, uk_date, total_new_cases, total_uk_cases, local_new_cases, total_local_cases
+    if local_data:
+        # get the date, new and total cases in the local area
+        local_date = local_data["lastUpdate"].split("T")[0]
+        total_local_cases = local_data["data"][0]["totalCases"]
+        local_new_cases = local_data["data"][0]["newCases"]
+        return local_date, uk_date, total_new_cases, total_uk_cases, \
+            local_new_cases, total_local_cases
+
+    return None, uk_date, total_new_cases, total_uk_cases, None, None
 
 
 def get_covid_info_formatted_for_notification():
@@ -68,12 +75,18 @@ def get_covid_info_formatted_for_notification():
 
     :return: The content to be displayed
     """
-    local_date, uk_date, total_new_cases, total_uk_cases, local_new_cases, total_local_cases = filter_data()
+    local_date, uk_date, total_new_cases, total_uk_cases, local_new_cases,\
+        total_local_cases = filter_data()
 
-    content = Markup(f"Total cases in the UK as of {uk_date}: {total_uk_cases}<br>"
-                     f"Total cases in {area_name} as of {local_date}: {total_local_cases}<br>"
-                     f"{total_new_cases} new cases today in the UK<br>"
-                     f"{local_new_cases} new cases today in {area_name}")
+    # if local_date is None than Area_name didnt return anything
+    if local_date is None:
+        content = Markup(f"Total cases in the UK as of {uk_date}: {total_uk_cases}<br>"
+                         f"{total_new_cases} new cases today in the UK<br>")
+    else:
+        content = Markup(f"Total cases in the UK as of {uk_date}: {total_uk_cases}<br>"
+                         f"Total cases in {area_name} as of {local_date}: {total_local_cases}<br>"
+                         f"{total_new_cases} new cases today in the UK<br>"
+                         f"{local_new_cases} new cases today in {area_name}")
     return content
 
 
@@ -83,11 +96,18 @@ def get_covid_info_formatted_for_announcement():
 
     :return: The content to be announced
     """
-    local_date, uk_date, total_new_cases, total_uk_cases, local_new_cases, total_local_cases = filter_data()
+    local_date, uk_date, total_new_cases, total_uk_cases, local_new_cases,\
+        total_local_cases = filter_data()
 
-    content = f"Total cases in the UK as of {uk_date}: {total_uk_cases}\n" \
-              f"Total cases in {area_name} as of {local_date}: {total_local_cases}\n" \
-              f"{total_new_cases} new cases today in the UK\n" \
-              f"{local_new_cases} new cases today in {area_name}"
+    # if local_date is None than Area_name didnt return anything
+    if local_date is None:
+        content = f"Total cases in the UK as of {uk_date}: {total_uk_cases}\n" \
+                  f"{total_new_cases} new cases today in the UK\n"
+
+    else:
+        content = f"Total cases in the UK as of {uk_date}: {total_uk_cases}\n" \
+                  f"Total cases in {area_name} as of {local_date}: {total_local_cases}\n" \
+                  f"{total_new_cases} new cases today in the UK\n" \
+                  f"{local_new_cases} new cases today in {area_name}"
 
     return content
