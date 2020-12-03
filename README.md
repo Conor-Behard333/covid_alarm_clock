@@ -84,4 +84,4 @@ Author: Conor Behard Roberts
 
 Github Repo: [Here](https://github.com/Conor-Behard333/covid_alarm_clock.git)
 
-Licence: [MIT](https://choosealicense.com/licenses/mit/)
+Licence: [MIT](LICENCE.txt)
