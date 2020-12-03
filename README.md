@@ -45,14 +45,14 @@ that will open the news article in another tab.
 In weather notifications the current temperature and what temperature it feels like is displayed.
 
 ## Testing
-###Unit testing
+### Unit testing
 ```bash
 pip install pytest 
 ```
 ```bash
 python -m pytest
 ```
-###Test code formatting
+### Test code formatting
 ```bash
 pip intall pylint
 ```
