@@ -1,10 +1,11 @@
-log: Alarm set: {'alarm time': '2020-12-03T12:44', 'title': 'test', 'content': Markup('Date set for 2020-12-03<br>Time set for 12:44<br>News briefing included'), 'weather': False, 'news': True}
+log: Alarm set: {'alarm time': '2020-12-03T16:46', 'title': 'test', 'content': Markup('Date set for 2020-12-03<br>Time set for 16:46<br>Weather briefing included<br>News briefing included'), 'weather': True, 'news': True}
 log: Delay for alarm: 60 seconds
 log: test alarm has been removed
-log: Alarm set: {'alarm time': '2020-12-03T12:44', 'title': 'test', 'content': Markup('Date set for 2020-12-03<br>Time set for 12:44<br>'), 'weather': False, 'news': False}
+log: Alarm set: {'alarm time': '2020-12-03T16:46', 'title': 'test', 'content': Markup('Date set for 2020-12-03<br>Time set for 16:46<br>'), 'weather': False, 'news': False}
 log: Delay for alarm: 60 seconds
 log: No alarm was found
 log: test alarm has been removed
 log: Covid update notification has been added
 log: notifications are being announced
 log: notifications are no longer being announced
+log: Covid update for 16:46 notification has been removed

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="refresh" content="30;url='/index'">
+    <meta http-equiv="refresh" content="60;url='/index'">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Basic form for alarm data entry. Template for ECM1400 CA3 2020. ">
     <meta name="author" content="Matt Collison">
@@ -49,7 +49,6 @@
                     </form>
                 </div>
                 <div class="toast-body">
-
                     {{ alarm['content'] }}
                 </div>
             </div>
@@ -59,7 +58,7 @@
         <div class="col-sm">
 
             <form action="/index" method="get" class="form-alarms">
-                <img class="mb-4" src="static/images/{{ image }}" alt="" width="72" height="72">
+                <img class="mb-4" src="/static/images/{{ image }}" alt="" width="72" height="72">
                 <h1 class="h3 mb-3 font-weight-normal">{{title}}</h1>
 
                 <input type="datetime-local" name="alarm" class="form-control">
